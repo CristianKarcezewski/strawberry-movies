@@ -1,0 +1,45 @@
+﻿@model Strawberry.Models.DTO.LoginDTO
+@{
+}
+
+<section class="container">
+    <form class="w-40">
+        <h2 class="pb-10">Add Movies</h2>
+        <div class="input-container">
+            <label for="MovieName" class="w-40">Movie Name</label>
+            <input type="text" class="input">
+        </div>
+        <div class="message-box pd-x-28 error">
+            Movie name is required
+        </div>
+
+        <div class="input-container">
+            <label for="password" class="w-40">Password</label>
+            <input type="password" class="input">
+
+        </div>
+
+        <div class="input-container">
+            <label for="Genre" class="w-40">Genre</label>
+            <select class="input">
+                <option value="">--select--</option>
+                <option value="1">Comedy</option>
+                <option value="2">Action</option>
+                <option value="3">Romance</option>
+                <option value="4">Horror</option>
+            </select>
+        </div>
+        <div class="message-box pd-x-28 error">
+            Genre is required
+        </div>
+
+        <div class="alert mb-1">
+            Saved successfully
+        </div>
+
+        <div class="input-container">
+            <button class="btn btn-default" type="submit">Save</button>
+            <a class="btn btn-sec" href="#">Add more</a>
+        </div>
+    </form>
+</section>
