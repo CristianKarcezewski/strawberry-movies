@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using NuGet.Protocol;
 using Strawberry.Models.Domain;
 using Strawberry.Models.DTO;
 using Strawberry.Repositories.Abstract;
@@ -35,7 +36,14 @@ namespace Strawberry.Repositories.Implementation
 
             //Check credentials
             var user = await userManager.FindByNameAsync(dto.UserName);
-            if (user == null || !await userManager.CheckPasswordAsync(user,dto.Password))
+            if (user == null)
+            {
+                status.StatusCode = ((int)HttpStatusCode.NotFound);
+                status.Message = "Login inválido";
+                return status;
+            }
+            var pw = await userManager.CheckPasswordAsync(user, dto.Password);
+            if (!pw)
             {
                 status.StatusCode = ((int)HttpStatusCode.NotFound);
                 status.Message = "Login inválido";
@@ -77,7 +85,7 @@ namespace Strawberry.Repositories.Implementation
             var status = new StatusDTO();
 
             //Verify if axists an user with same name already registered
-            var userExists = await userManager.FindByNameAsync(dto.Name);
+            var userExists = await userManager.FindByNameAsync(dto.UserName);
             if (userExists != null)
             {
                 status.StatusCode = ((int)HttpStatusCode.Conflict);
@@ -88,19 +96,21 @@ namespace Strawberry.Repositories.Implementation
             //Parce DTO data and register new user
             UserModel user = new UserModel();
             user.SecurityStamp = Guid.NewGuid().ToString();
-            user.Name = dto.Name;
+            user.UserName = dto.UserName;
             user.Email = dto.Email;
 
-            var result = await userManager.CreateAsync(user);
+            var result = await userManager.CreateAsync(user,dto.Password);
             if (!result.Succeeded)
             {
                 status.StatusCode = ((int)HttpStatusCode.NotImplemented);
-                status.Message = "Erro ao salvar novo usuário.";
+                //status.Message = "Erro ao salvar novo usuário.";
+                status.Message = result.ToJson();
                 return status;
             }
 
             if(!await roleManager.RoleExistsAsync(dto.Role))
             {
+                await roleManager.CreateAsync(new IdentityRole(dto.Role));
                 await userManager.AddToRoleAsync(user, dto.Role);
             }
 

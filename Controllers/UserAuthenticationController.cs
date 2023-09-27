@@ -10,7 +10,6 @@ namespace Strawberry.Controllers
         public UserAuthenticationController(IUserAuthenticationService authService)
         {
             this.authService = authService;
-            this.RegisterAdmin();
         }
         public IActionResult Register()
         {
@@ -21,29 +20,19 @@ namespace Strawberry.Controllers
          * Each time the application starts, lets try to register an admin account.
          * If the account name already is registered, the method will fail.
          */
-        private async void RegisterAdmin()
+        public async Task<IActionResult> RegisterAdmin()
         {
-            var dto = new RegisterDTO();
-            dto.Name = "admin";
-            dto.UserName = "admin";
-            dto.Email = "admin@gmail.com";
-            dto.Password = "admin@123";
-            dto.PasswordConfirm = "admin@123";
-            dto.Role = "Admin";
+            var dto = new RegisterDTO
+            {
+                UserName = "admin",
+                Email = "admin@gmail.com",
+                Password = "Admin@123",
+                PasswordConfirm = "Admin@123",
+                Role = "Admin",
+            };
 
             var result = await authService.RegisterAsync(dto);
-            if (result.StatusCode.Equals(201))
-            {
-                System.Diagnostics.Debug.WriteLine("Registrando usuário admin.");
-            }
-            if (result.StatusCode.Equals(409))
-            {
-                System.Diagnostics.Debug.WriteLine("Usuário admin já registrado.");
-            }
-            if (result.StatusCode.Equals(501))
-            {
-                System.Diagnostics.Debug.WriteLine("Erro ao registrar usuário admin.");
-            }
+            return Ok(result.Message);
         }
 
         public async Task<IActionResult> Login()
@@ -69,7 +58,12 @@ namespace Strawberry.Controllers
                 TempData["msg"] = "Não foi possível realizar o login";
                 return RedirectToAction(nameof(Login));
             }
-            return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await authService.LogoutAsync();
+            return RedirectToAction(nameof(Login));
         }
     }
 }
