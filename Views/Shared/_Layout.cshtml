@@ -24,18 +24,15 @@
         </div>
         <ul class="nav-link">
             <li><a class="active" href="/Home/Index">Home</a></li>
-            <li><a href="/Home/About">About</a></li>
-            @if (!string.IsNullOrEmpty(username))
+            @if (!string.IsNullOrEmpty(username) && User.IsInRole("Admin"))
             {
                 <li>
                     <a href="#">Admin <i class="fa fa-caret-down"></i></a>
 
                     <ul class="dropdown-nav-link">
-                        <li><a href="/forms.html">Form</a></li>
-                        <li><a href="/table.html">Table</a></li>
-                        <li><a href="/movie-detail.html">Movie Detail</a></li>
-                        <li><a href="#">Link 4</a></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="/Movie/Create">Filmes</a></li>
+                        <li><a href="/Genre/Create">Gêneros</a></li>
+                        <li><a href="/Streaming/Create">Streaming</a></li>
                     </ul>
                 </li>
             }
@@ -43,13 +40,18 @@
             {
                 <li><a href="/UserAuthentication/Login">Login</a></li>
             }
+            else
+            {
+                <li><a href="/UserAuthentication/Logout">Logout</a></li>
+            }
+            <li><a href="/Home/About">About</a></li>
         </ul>
     </nav>
     <div class="container">
         @RenderBody()
     </div>
     <footer>
-        &#169; 2022 Ravindra Devrani
+        Cristian Karcezewski
     </footer>
 </body>
 </html>

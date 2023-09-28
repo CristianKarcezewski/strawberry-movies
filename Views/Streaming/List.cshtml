@@ -1,0 +1,26 @@
+﻿@model IQueryable<Strawberry.Models.Domain.Streaming>;
+@{
+}
+<div class="tbl-container">
+    <h2>Serviços de streaming</h2>
+
+    <table>
+        <tr>
+            <th>Nomes</th>
+            <th>Opções</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StreamingName</td>
+                <td>
+                    <a href="/Streaming/Update?id=@item.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                    <a href="/Streaming/Delete?id=@item.Id" onclick="return window.confirm('Você tem certeza?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="input-container">
+        <a href="#" class="btn btn-sec">Back</a>
+    </div>
+</div>

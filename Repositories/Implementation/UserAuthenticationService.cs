@@ -50,7 +50,7 @@ namespace Strawberry.Repositories.Implementation
                 return status;
             }
 
-            var signResult = await signInManager.PasswordSignInAsync(user, dto.Password, false, true);
+            var signResult = await signInManager.PasswordSignInAsync(user, dto.Password, true, true);
             if (signResult.Succeeded)
             {
                 var userRoles = await userManager.GetRolesAsync(user);

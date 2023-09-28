@@ -1,0 +1,78 @@
+﻿@model Strawberry.Models.Domain.Movie;
+@{
+}
+<form class="w-40" asp-action="Create" method="post">
+    <h2 class="pb-10">Adicionar Filme</h2>
+
+    <div class="input-container">
+        <label asp-for="Title" class="w-40">Titulo</label>
+        <input type="text" class="input" asp-for="Title">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="ReleaseYear" class="w-40">Ano de lançamento</label>
+        <input type="text" class="input" asp-for="ReleaseYear">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="ReleaseYear"></span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="ReleaseMonth" class="w-40">Mês de lançamento</label>
+        <input type="text" class="input" asp-for="ReleaseMonth">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="ReleaseMonth"></span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="Description" class="w-40">Descrição</label>
+        <input type="text" class="input" asp-for="Description">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="Description"></span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="ImageUrl" class="w-40">URL de imagem</label>
+        <input type="text" class="input" asp-for="ImageUrl">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="ImageUrl"></span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="GenresIds" class="w-40">Gêneros</label>
+        <select asp-items="Model.Genres" class="input" asp-for="GenresIds" multiple>
+            <option value="">--Selecionar--</option>
+        </select>
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="GenresIds"></span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="StreamingsIds" class="w-40">Streamings</label>
+        <select asp-items="Model.Streamings" class="input" asp-for="StreamingsIds" multiple>
+            <option value="">--Selecionar--</option>
+        </select>
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="StreamingsIds"></span>
+    </div>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert mb-1">
+            @TempData["msg"]
+        </div>
+    }
+
+    <div class="input-container">
+        <button class="btn btn-default" type="submit">Salvar</button>
+        <a class="btn btn-sec" href="/Movie/Fetch">Ir para lista</a>
+    </div>
+</form>

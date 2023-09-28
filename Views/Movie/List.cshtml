@@ -1,0 +1,38 @@
+﻿@model IQueryable<Strawberry.Models.Domain.Movie>;
+@{
+}
+<div class="tbl-container">
+    <h2>Filmes</h2>
+
+    <table>
+        <tr>
+            <th>Titulo</th>
+            <th>Mes de lançamento</th>
+            <th>Ano de lançamento</th>
+            <th>Imagem</th>
+            <th>Descrição</th>
+            <th>Gênero</th>
+            <th>Streaming</th>
+            <th>Opções</th>
+        </tr>
+        @foreach(var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.ReleaseMonth</td>
+                <td>@movie.ReleaseYear</td>
+                <td><img style="height:60px;width:80px;" src="@movie.ImageUrl" /></td>
+                <td>@movie.Description</td>
+                <td>@movie.GenresNames.ToString()</td>
+                <td>@movie.StreamingNames.ToString()</td>
+                <td>
+                    <a href="/Genre/Update?id=@movie.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                    <a href="/Genre/Delete?id=@movie.Id" onclick="return window.confirm('Você tem certeza?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="input-container">
+        <a href="/Movie/Create" class="btn btn-sec">Back</a>
+    </div>
+</div>
