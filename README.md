@@ -6,8 +6,8 @@ O sistema conta com autenticação de usuário, onde apenas usuários administra
 Para cadastrar um filme, primeiro precisa fazer manualmente o cadastro de generos e plataforma de streamings, pois são necessários para registrar os filmes.
 Há campos de seleção, onde é possivel escolher mais de um Gênero e Streaming para os filmes, basta segurar a tecla CTRL
 Não é possivel cadastrar usuários administradores, mas há um metodo pronto que faz o registro automatico de um, quando rodar o projeto, basta colocar na url do navegador a seguinte rota:
-https://localhost:44350/UserAuthentication/RegisterAdmin
-Login: admin
+https://localhost:44350/UserAuthentication/RegisterAdmin,
+Login: admin,
 Senha Admin@123
 
 # Configuração do projeto
