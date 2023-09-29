@@ -12,7 +12,7 @@ Senha Admin@123
 
 # Configuração do projeto
 O sistema está configurado para rodar com SQL Server e tem migrations configurado.
-Após clonar o repositório e instalar as dependencias, é necessário ajustar a string de conexão com o banco de dados localizada no arquivo "appsettings.json", na raiz do projeto. criar e rodar as migrations.
+Após clonar o repositório e instalar as dependencias, é necessário ajustar a string de conexão com o banco de dados localizada no arquivo "appsettings.json", na raiz do projeto. Posteriormente criar e rodar as migrations.
 No Visual Studio, basta ir em Ferramentas > Gerenciador de pacotes NuGet > Console do gerenciador de pacotes.
 No terminal que abrir rodar 2 comandos: "add-migrations init" e depois "update-database"
 Basta rodar o projeto e ele vai abrir por conta uma nova aba no navegador.
