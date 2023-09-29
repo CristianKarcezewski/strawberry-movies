@@ -39,16 +39,16 @@ namespace Strawberry.Controllers
             }
         }
 
-        public IActionResult Update(int id)
+        public IActionResult Edit(int id)
         {
             var data = genreService.GetById(id);
             return View(data);
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult Update(Genre genre)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(genre);
             }

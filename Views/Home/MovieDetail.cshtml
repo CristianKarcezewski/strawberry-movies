@@ -1,0 +1,18 @@
+﻿@model Strawberry.Models.Domain.Movie;
+@{
+}
+<div class="movie-detail w-80 m-auto">
+    <div class="img-container">
+        <img alt="image" src="@Model.ImageUrl">
+    </div>
+
+    <div class="detail-container">
+        <h4>@Model.Title</h4>
+        <h4>@Model.GenresToString()</h4>
+        <h4>@Model.StreamingsToString()</h4>
+        <h4>@Model.ReleaseMonth/@Model.ReleaseYear</h4>
+    </div>
+</div>
+<div class="w-80 m-auto">
+    <a href="/Home/Index" class="btn btn-default">Home</a>
+</div>

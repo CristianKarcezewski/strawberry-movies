@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Strawberry.Models.Domain;
 using Strawberry.Repositories.Abstract;
 
@@ -50,32 +51,51 @@ namespace Strawberry.Repositories.Implementation
             }
         }
 
-        public IQueryable<Movie> Fetch()
+        public List<Movie> Fetch(string search = "")
         {
             try
             {
-                var data = ctx.Movies.AsQueryable();
-                foreach(var movie in data)
+                List<Movie> data = ctx.Movies.AsQueryable().ToList();
+                if (!string.IsNullOrEmpty(search))
                 {
-                    List<string> genresNames = (from Genre genre in ctx.Genres
+                    search = search.ToLower();
+                    data = data.Where(m => m.Title.ToLower().Contains(search)).ToList();
+                }
+                foreach(Movie movie in data)
+                {
+                    movie.GenresIds = new List<int>();
+                    movie.GenresNames = new List<string>();
+                    movie.StreamingsIds = new List<int>();
+                    movie.StreamingNames = new List<string>();
+
+                    List<Genre> genresData = (from Genre genre in ctx.Genres
                                   join MovieGenre movieGenre in ctx.MoviesGenres
                                   on genre.Id equals movieGenre.GenreId
                                   where movieGenre.MovieId == movie.Id
-                                  select genre.GenreName).ToList();
-                    movie.GenresNames = genresNames;
+                                  select genre).ToList();
 
-                    List<string> streamingsNames = (from Streaming streaming in ctx.streamings
+                    genresData.ForEach(g =>
+                    {
+                        if (g.Id > 0) { movie.GenresIds.Add(g.Id); }
+                        if (!string.IsNullOrEmpty(g.GenreName)) { movie.GenresNames.Add(g.GenreName); }
+                    });
+
+                    List<Streaming> streamingsData = (from Streaming streaming in ctx.streamings
                                                     join MovieStreaming movieStreaming in ctx.MovieStreamings
                                                     on streaming.Id equals movieStreaming.StreamingId
                                                     where movieStreaming.MovieId == movie.Id
-                                                    select streaming.StreamingName).ToList();
-                    movie.StreamingNames = streamingsNames;
+                                                    select streaming).ToList();
+                    streamingsData.ForEach(s =>
+                    {
+                        if (s.Id > 0) { movie.StreamingsIds.Add(s.Id); }
+                        if (!string.IsNullOrEmpty(s.StreamingName)) { movie.StreamingNames.Add(s.StreamingName); }
+                    });
                 }
                 return data;
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<Movie>().AsQueryable();
+                return new List<Movie>();
             }
         }
 
@@ -83,7 +103,36 @@ namespace Strawberry.Repositories.Implementation
         {
             try
             {
-                return ctx.Movies.Find(id);
+                Movie movie = ctx.Movies.Find(id);
+                movie.GenresIds = new List<int>();
+                movie.GenresNames = new List<string>();
+                movie.StreamingsIds = new List<int>();
+                movie.StreamingNames = new List<string>();
+
+                List<Genre> genresData = (from Genre genre in ctx.Genres
+                                          join MovieGenre movieGenre in ctx.MoviesGenres
+                                          on genre.Id equals movieGenre.GenreId
+                                          where movieGenre.MovieId == movie.Id
+                                          select genre).ToList();
+
+                genresData.ForEach(g =>
+                {
+                    if (g.Id > 0) { movie.GenresIds.Add(g.Id); }
+                    if (!string.IsNullOrEmpty(g.GenreName)) { movie.GenresNames.Add(g.GenreName); }
+                });
+
+                List<Streaming> streamingsData = (from Streaming streaming in ctx.streamings
+                                                  join MovieStreaming movieStreaming in ctx.MovieStreamings
+                                                  on streaming.Id equals movieStreaming.StreamingId
+                                                  where movieStreaming.MovieId == movie.Id
+                                                  select streaming).ToList();
+                streamingsData.ForEach(s =>
+                {
+                    if (s.Id > 0) { movie.StreamingsIds.Add(s.Id); }
+                    if (!string.IsNullOrEmpty(s.StreamingName)) { movie.StreamingNames.Add(s.StreamingName); }
+                });
+
+                return movie;
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-﻿@model IQueryable<Strawberry.Models.Domain.Streaming>;
+﻿@model List<Strawberry.Models.Domain.Streaming>;
 @{
 }
 <div class="tbl-container">
@@ -14,13 +14,13 @@
             <tr>
                 <td>@item.StreamingName</td>
                 <td>
-                    <a href="/Streaming/Update?id=@item.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                    <a href="/Streaming/Edit?id=@item.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
                     <a href="/Streaming/Delete?id=@item.Id" onclick="return window.confirm('Você tem certeza?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         }
     </table>
     <div class="input-container">
-        <a href="#" class="btn btn-sec">Back</a>
+        <a href="/Streaming/Create" class="btn btn-sec">Back</a>
     </div>
 </div>

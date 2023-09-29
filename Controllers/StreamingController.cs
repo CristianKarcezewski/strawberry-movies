@@ -20,7 +20,7 @@ namespace Strawberry.Controllers
         [HttpPost]
         public IActionResult Create(Streaming streaming)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(streaming);
             }
@@ -38,16 +38,16 @@ namespace Strawberry.Controllers
             }
         }
 
-        public IActionResult Update(int id)
+        public IActionResult Edit(int id)
         {
             var data = streamingService.GetById(id);
             return View(data);
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult Update(Streaming streaming)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(streaming);
             }

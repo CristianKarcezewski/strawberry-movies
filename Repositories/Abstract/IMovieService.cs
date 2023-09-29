@@ -8,6 +8,6 @@ namespace Strawberry.Repositories.Abstract
         bool Update(Movie movie);
         bool Delete(int id);
         Movie GetById(int id);
-        IQueryable<Movie> Fetch();
+        List<Movie> Fetch(string search = "");
     }
 }

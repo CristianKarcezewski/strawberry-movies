@@ -34,8 +34,8 @@ namespace Strawberry.Controllers
         [HttpPost]
         public IActionResult Create(Movie movie)
         {
-            movie.Genres = genreService.Fetch().Select(g => new SelectListItem { Text = g.GenreName, Value = g.Id.ToString() });
-            movie.Streamings = streamingService.Fetch().Select(s => new SelectListItem { Text = s.StreamingName, Value = s.Id.ToString() });
+            movie.Genres = genreService.Fetch().Select(g => new SelectListItem { Text = g.GenreName, Value = g.Id.ToString(), Selected = movie.GenresIds.Contains(g.Id) });
+            movie.Streamings = streamingService.Fetch().Select(s => new SelectListItem { Text = s.StreamingName, Value = s.Id.ToString(), Selected = movie.StreamingsIds.Contains(s.Id) });
 
             if (!ModelState.IsValid)
             {
@@ -54,19 +54,19 @@ namespace Strawberry.Controllers
             }
         }
 
-        public IActionResult Update(int id)
+        public IActionResult Edit(int id)
         {
             Movie movie = movieService.GetById(id);
-            movie.Genres = genreService.Fetch().Select(g => new SelectListItem { Text = g.GenreName, Value = g.Id.ToString() });
-            movie.Streamings = streamingService.Fetch().Select(s => new SelectListItem { Text = s.StreamingName, Value = s.Id.ToString() });
+            movie.Genres = genreService.Fetch().Select(g => new SelectListItem { Text = g.GenreName, Value = g.Id.ToString(), Selected = movie.GenresIds.Contains(g.Id) });
+            movie.Streamings = streamingService.Fetch().Select(s => new SelectListItem { Text = s.StreamingName, Value = s.Id.ToString(), Selected = movie.StreamingsIds.Contains(s.Id) });
             return View(movie);
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult Update(Movie movie)
         {
-            movie.Genres = genreService.Fetch().Select(g => new SelectListItem { Text = g.GenreName, Value = g.Id.ToString() });
-            movie.Streamings = streamingService.Fetch().Select(s => new SelectListItem { Text = s.StreamingName, Value = s.Id.ToString() });
+            movie.Genres = genreService.Fetch().Select(g => new SelectListItem { Text = g.GenreName, Value = g.Id.ToString(), Selected = movie.GenresIds.Contains(g.Id) });
+            movie.Streamings = streamingService.Fetch().Select(s => new SelectListItem { Text = s.StreamingName, Value = s.Id.ToString(), Selected = movie.StreamingsIds.Contains(s.Id) });
 
             if (ModelState.IsValid)
             {

@@ -1,7 +1,7 @@
 ﻿@model Strawberry.Models.Domain.Genre;
 @{
 }
-<form class="w-40" asp-action="Update" method="put">
+<form class="w-40" asp-action="Update" method="post">
     <h2 class="pb-10">Atualizar genero</h2>
     <input type="hidden" class="input" asp-for="Id" />
     <div class="input-container">
@@ -21,6 +21,6 @@
 
     <div class="input-container">
         <button class="btn btn-default" type="submit">Salvar</button>
-        <a class="btn btn-sec" href="/Genre/Fetch">Ir para lista</a>
+        <a class="btn btn-sec" href="/Genre/List">Ir para lista</a>
     </div>
 </form>

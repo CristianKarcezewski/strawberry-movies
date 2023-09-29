@@ -1,4 +1,4 @@
-﻿@model IQueryable<Strawberry.Models.Domain.Genre>;
+﻿@model List<Strawberry.Models.Domain.Genre>;
 @{
 }
 <div class="tbl-container">
@@ -14,13 +14,13 @@
             <tr>
                 <td>@item.GenreName</td>
                 <td>
-                    <a href="/Genre/Update?id=@item.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                    <a href="/Genre/Edit?id=@item.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
                     <a href="/Genre/Delete?id=@item.Id" onclick="return window.confirm('Você tem certeza?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         }
     </table>
     <div class="input-container">
-        <a href="#" class="btn btn-sec">Back</a>
+        <a href="/Genre/Create" class="btn btn-sec">Back</a>
     </div>
 </div>

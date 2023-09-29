@@ -1,7 +1,7 @@
 ﻿@model Strawberry.Models.Domain.Movie;
 @{
 }
-<form class="w-40" asp-action="Update" method="put">
+<form class="w-40" asp-action="Update" method="post">
     <h2 class="pb-10">Atualizar Filme</h2>
     <input type="text" class="input" asp-for="Id" />
 
@@ -74,6 +74,6 @@
 
     <div class="input-container">
         <button class="btn btn-default" type="submit">Salvar</button>
-        <a class="btn btn-sec" href="/Movie/Fetch">Ir para lista</a>
+        <a class="btn btn-sec" href="/Movie/List">Ir para lista</a>
     </div>
 </form>

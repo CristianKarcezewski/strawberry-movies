@@ -18,18 +18,28 @@ namespace Strawberry.Models.Domain
 
         [NotMapped]
         [Required]
-        public List<int> GenresIds { get; set; }
+        public List<int>? GenresIds { get; set; }
         [NotMapped]
         [Required]
-        public List<int> StreamingsIds { get; set; }
+        public List<int>? StreamingsIds { get; set; }
 
         [NotMapped]
-        public IEnumerable<SelectListItem> Genres { get; set; }
+        public IEnumerable<SelectListItem>? Genres { get; set; }
         [NotMapped]
-        public IEnumerable<SelectListItem> Streamings { get; set; }
+        public IEnumerable<SelectListItem>? Streamings { get; set; }
         [NotMapped]
-        public List<String> GenresNames { get; set; }
+        public List<String>? GenresNames { get; set; }
         [NotMapped]
-        public List<String> StreamingNames { get; set; }
+        public List<String>? StreamingNames { get; set; }
+
+        public string GenresToString()
+        {
+             return GenresNames != null ? string.Join(", ", GenresNames) : string.Empty;
+        }
+
+        public string StreamingsToString()
+        {
+            return StreamingNames != null ? string.Join(", ", StreamingNames) : string.Empty;
+        }
     }
 }

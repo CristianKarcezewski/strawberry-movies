@@ -1,8 +1,8 @@
 ﻿@model Strawberry.Models.Domain.Streaming;
 @{
 }
-<form class="w-40" asp-action="Update" method="put">
-    <h2 class="pb-10">Atualizar genero</h2>
+<form class="w-40" asp-action="Update" method="post">
+    <h2 class="pb-10">Atualizar streaming</h2>
     <input type="hidden" class="input" asp-for="Id" />
     <div class="input-container">
         <label asp-for="StreamingName" class="w-40">Nome do streaming</label>
@@ -21,6 +21,6 @@
 
     <div class="input-container">
         <button class="btn btn-default" type="submit">Salvar</button>
-        <a class="btn btn-sec" href="/Genre/Fetch">Ir para lista</a>
+        <a class="btn btn-sec" href="/Streaming/List">Ir para lista</a>
     </div>
 </form>

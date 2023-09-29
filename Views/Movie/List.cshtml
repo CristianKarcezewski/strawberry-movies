@@ -1,4 +1,4 @@
-﻿@model IQueryable<Strawberry.Models.Domain.Movie>;
+﻿@model List<Strawberry.Models.Domain.Movie>;
 @{
 }
 <div class="tbl-container">
@@ -23,11 +23,11 @@
                 <td>@movie.ReleaseYear</td>
                 <td><img style="height:60px;width:80px;" src="@movie.ImageUrl" /></td>
                 <td>@movie.Description</td>
-                <td>@movie.GenresNames.ToString()</td>
-                <td>@movie.StreamingNames.ToString()</td>
+                <td>@movie.GenresToString()</td>
+                <td>@movie.StreamingsToString()</td>
                 <td>
-                    <a href="/Genre/Update?id=@movie.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
-                    <a href="/Genre/Delete?id=@movie.Id" onclick="return window.confirm('Você tem certeza?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    <a href="/Movie/Edit?id=@movie.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                    <a href="/Movie/Delete?id=@movie.Id" onclick="return window.confirm('Você tem certeza?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         }
